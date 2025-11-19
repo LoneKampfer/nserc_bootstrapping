@@ -1,0 +1,4 @@
+# Ground-state energy fit for kplus on a12m130
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    6    32         3    0.302180    0.000085     0.519      0.9780   931.866 

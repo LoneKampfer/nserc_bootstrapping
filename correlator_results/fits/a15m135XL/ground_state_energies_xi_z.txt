@@ -1,0 +1,4 @@
+# Ground-state energy fit for xi_z on a15m135XL
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    4    21         3    0.962119    0.000768     0.283      1.1211  1051.384 

@@ -1,0 +1,4 @@
+# Ground-state energy fit for lambda_z on a06m220L
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+   16    42         3    0.331062    0.003000     0.789      0.8424  1786.773 

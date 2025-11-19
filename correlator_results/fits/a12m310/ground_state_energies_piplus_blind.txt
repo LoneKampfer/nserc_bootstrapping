@@ -1,0 +1,4 @@
+# Ground-state energy fit for piplus on a12m310
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    6    32         3    0.188697    0.000147     1.000      0.4666   824.387 

@@ -1,0 +1,4 @@
+# Ground-state energy fit for omega_m on a06m220L
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+   16    42         3    0.481524    0.001894     0.312      1.0845  1954.025 

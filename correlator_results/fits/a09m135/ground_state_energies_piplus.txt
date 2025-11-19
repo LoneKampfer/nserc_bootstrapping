@@ -1,0 +1,4 @@
+# Ground-state energy fit for piplus on a09m135
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    8    48         3    0.059448    0.000045     0.004      1.4761  1117.402 

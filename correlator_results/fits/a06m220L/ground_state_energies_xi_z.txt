@@ -1,0 +1,4 @@
+# Ground-state energy fit for xi_z on a06m220L
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+   16    42         3    0.383002    0.001281     0.678      0.9022  1847.705 

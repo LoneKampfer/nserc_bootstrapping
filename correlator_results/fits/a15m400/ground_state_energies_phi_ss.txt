@@ -1,0 +1,4 @@
+# Ground-state energy fit for phi_ss on a15m400
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    4    24         3    0.521947    0.000212     0.745      0.8448   742.069 

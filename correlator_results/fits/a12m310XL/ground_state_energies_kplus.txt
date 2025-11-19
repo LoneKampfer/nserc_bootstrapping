@@ -1,0 +1,4 @@
+# Ground-state energy fit for kplus on a12m310XL
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    6    32         3    0.324562    0.000095     0.755      0.8586   951.901 

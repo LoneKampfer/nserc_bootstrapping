@@ -1,0 +1,4 @@
+# Ground-state energy fit for sigma_star_p on a12m220_ms
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    6    21         3    0.842547    0.015757     0.929      0.6604   971.731 

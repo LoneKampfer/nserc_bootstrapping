@@ -1,0 +1,4 @@
+# Ground-state energy fit for kplus on a15m220
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    4    24         3    0.386758    0.000182     0.279      1.1186   655.795 

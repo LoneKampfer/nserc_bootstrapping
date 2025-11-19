@@ -1,0 +1,4 @@
+# Ground-state energy fit for sigma_star_p on a15m310
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    4    16         3    1.145121    0.003215     0.760      0.7944   707.568 

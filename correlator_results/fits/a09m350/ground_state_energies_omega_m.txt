@@ -1,0 +1,4 @@
+# Ground-state energy fit for omega_m on a09m350
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    8    21         3    0.758686    0.004688     0.574      0.9282   841.456 

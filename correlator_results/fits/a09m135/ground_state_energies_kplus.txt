@@ -1,0 +1,4 @@
+# Ground-state energy fit for kplus on a09m135
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    8    48         3    0.218510    0.000069     0.230      1.1126  1568.338 

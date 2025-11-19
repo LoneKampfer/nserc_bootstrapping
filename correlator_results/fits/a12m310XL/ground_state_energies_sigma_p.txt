@@ -1,0 +1,4 @@
+# Ground-state energy fit for sigma_p on a12m310XL
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    6    21         3    0.766966    0.002205     0.990      0.5090   897.607 

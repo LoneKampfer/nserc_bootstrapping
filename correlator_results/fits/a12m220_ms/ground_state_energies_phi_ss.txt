@@ -1,0 +1,4 @@
+# Ground-state energy fit for phi_ss on a12m220_ms
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    6    32         3    0.319431    0.000114     0.081      1.2847  1059.594 

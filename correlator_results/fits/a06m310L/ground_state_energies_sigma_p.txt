@@ -1,0 +1,4 @@
+# Ground-state energy fit for sigma_p on a06m310L
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+   16    35         3    0.378747    0.001735     0.985      0.5787  1303.153 

@@ -1,0 +1,4 @@
+# Ground-state energy fit for xi_z on a09m350
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    8    21         3    0.614239    0.001133     0.874      0.7047   786.961 

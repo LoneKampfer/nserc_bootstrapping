@@ -1,0 +1,4 @@
+# Ground-state energy fit for sigma_p on a09m350
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    8    21         3    0.581765    0.001570     0.619      0.8986   765.017 

@@ -1,0 +1,4 @@
+# Ground-state energy fit for lambda_z on a15m310L
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    4    16         3    0.883174    0.001686     0.892      0.6741   686.795 

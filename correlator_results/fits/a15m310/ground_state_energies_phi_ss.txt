@@ -1,0 +1,4 @@
+# Ground-state energy fit for phi_ss on a15m310
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    4    24         3    0.518616    0.000173     0.916      0.7092   796.915 

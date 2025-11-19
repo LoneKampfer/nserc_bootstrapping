@@ -1,0 +1,4 @@
+# Ground-state energy fit for sigma_p on a15m135XL
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    4    21         3    0.920070    0.001433     0.945      0.6552   983.568 

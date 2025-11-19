@@ -1,0 +1,4 @@
+# Ground-state energy fit for xi_z on a12m130
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    6    21         3    0.776935    0.000929     0.432      1.0218   918.145 

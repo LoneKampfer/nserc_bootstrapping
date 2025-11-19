@@ -1,0 +1,4 @@
+# Ground-state energy fit for omega_m on a12m260
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    6    21         3    0.994670    0.003476     0.978      0.5613   972.452 

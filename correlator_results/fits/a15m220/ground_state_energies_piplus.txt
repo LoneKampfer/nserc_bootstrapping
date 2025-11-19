@@ -1,0 +1,4 @@
+# Ground-state energy fit for piplus on a15m220
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    4    24         3    0.165305    0.000222     0.786      0.8181   497.043 

@@ -1,0 +1,4 @@
+# Ground-state energy fit for sigma_star_p on a09m220_o
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    8    32         3    0.638354    0.011204     0.315      1.0853  1796.561 

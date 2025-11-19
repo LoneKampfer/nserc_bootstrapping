@@ -1,0 +1,4 @@
+# Ground-state energy fit for lambda_z on a12m180S
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    6    21         3    0.670692    0.005620     0.628      0.9006   860.885 

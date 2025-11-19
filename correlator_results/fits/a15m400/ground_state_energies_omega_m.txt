@@ -1,0 +1,4 @@
+# Ground-state energy fit for omega_m on a15m400
+# Columns: t_min  t_max  num_exps  E0_mean  E0_sdev  Q_value  chi2_dof  logBF
+# -------------------------------------------------------------
+    4    16         3    1.242491    0.004652     0.333      1.0975   715.682 

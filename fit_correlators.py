@@ -12,14 +12,6 @@ import re
 import h5py as h5
 import time
 
-# --- 1. Single-threaded math for deterministic BLAS ---
-os.environ["OMP_NUM_THREADS"] = "1"
-os.environ["OPENBLAS_NUM_THREADS"] = "1"
-os.environ["MKL_NUM_THREADS"] = "1"
-
-# --- 2. Fixed RNG for NumPy and gvar ---
-np.random.seed(42)
-gv.ranseed(42)  # yes, this exists and directly controls gvar’s RNG
 
 channel_colors = {
     'ss': 'grey',

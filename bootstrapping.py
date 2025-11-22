@@ -1,4 +1,15 @@
 import hashlib
+import multiprocessing as mp
+import warnings
+
+# suppress numerical RuntimeWarnings
+warnings.filterwarnings("ignore", category=RuntimeWarning)
+
+# suppress multiprocessing gvar pickle warnings
+warnings.filterwarnings("ignore", message="Pickling GVars")
+
+# suppress any generic UserWarning from the multiprocessing reduction module
+warnings.filterwarnings("ignore", category=UserWarning, module="multiprocessing")
 
 from fit_correlators import *
 
@@ -96,3 +107,97 @@ def bootstrap_gvdata(gvdata, T_original, hadron, ensemble_indices, boot0_ground_
     t1 = time.time()
     print(f"Time taken: {t1 - t0} seconds")
     return ground_state_energies
+
+
+
+# ===== parallel execution =====
+
+def _bootstrap_chunk_worker(args):
+    """
+    Run bootstrap_gvdata on a chunk of indices.
+    THIS CALLS YOUR EXISTING FUNCTION EXACTLY AS-IS.
+    """
+    (
+        gvdata,
+        T_original,
+        hadron,
+        indices_chunk,
+        boot0,
+        mpi,
+        tmin,
+        tmax,
+        num_exps,
+        tref,
+    ) = args
+
+    # Use your existing function directly
+    return bootstrap_gvdata(
+        gvdata,
+        T_original,
+        hadron,
+        indices_chunk,
+        boot0,
+        mpi,
+        tmin,
+        tmax,
+        num_exps,
+        tref,
+        verbose=False  # don't spam
+    )[1:]  # drop the boot0 at the front
+
+def bootstrap_gvdata_parallel(
+    gvdata,
+    T_original,
+    hadron,
+    ensemble_indices,
+    boot0_ground_state_energy,
+    mpi,
+    tmin,
+    tmax,
+    num_exps,
+    tref,
+    verbose=True
+):
+    N = ensemble_indices.shape[0]
+
+    # determine workers
+    try:
+        import psutil
+        n_workers = psutil.cpu_count(logical=False)
+    except:
+        n_workers = mp.cpu_count()
+
+    if verbose:
+        print(f"[parallel bootstrap] {N} samples on {n_workers} workers")
+
+    # chunk the index table
+    chunks = np.array_split(ensemble_indices, n_workers, axis=0)
+
+    # prepare arguments for each worker
+    worker_args = [
+        (
+            gvdata,
+            T_original,
+            hadron,
+            chunk,
+            boot0_ground_state_energy,
+            mpi,
+            tmin,
+            tmax,
+            num_exps,
+            tref,
+        )
+        for chunk in chunks if len(chunk) > 0
+    ]
+
+    # Mac-safe start method
+    ctx = mp.get_context("spawn")
+
+    with ctx.Pool(n_workers) as pool:
+        results = pool.map(_bootstrap_chunk_worker, worker_args)
+
+    # flatten all lists
+    flat = [E for worker_list in results for E in worker_list]
+
+    # prepend boot0
+    return [boot0_ground_state_energy] + flat

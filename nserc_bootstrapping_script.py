@@ -58,7 +58,7 @@ def main(hadron):
             continue
 
         # 1. Load gvdata
-        gvdata = prepare_gvdata(data, ensemble, hadron)
+        gvdata, T_original = prepare_gvdata(data, ensemble, hadron)
         n_cfg = gvdata.shape[0]
 
         # 2. Load boot0 fit + mpi cache
@@ -69,8 +69,11 @@ def main(hadron):
         idx = generate_ensemble_indices(ensemble, n_cfg, N_BOOTSTRAP)
 
         # 4. Perform bootstrap fits
+        # Note: T_original is needed for meson cosh fits (fit_function_meson requires it)
         energies = bootstrap_gvdata(
             gvdata,
+            T_original,
+            hadron,
             idx,
             boot0,
             mpi,
@@ -78,15 +81,21 @@ def main(hadron):
             tmax,
             num_exps,
             tref,
-            verbose=False
+            verbose=True
         )
+        print('bootstrap means: ', np.mean(energies[1:]))
 
         # ---------------------------
         # Shift means to match boot0
         # ---------------------------
+        # Extract means from bootstrap samples (excluding boot0 which is energies[0])
+        # Shift all bootstrap means so their average equals boot0.mean
+        # This ensures the bootstrap distribution is centered on the original fit
         boot_means = np.array([e.mean for e in energies[1:]])
         diff = boot0.mean - boot_means.mean()
         shifted = np.array([energies[0].mean] + list(boot_means + diff))
+        # Note: Only means are saved (uncertainties discarded). If you need full
+        # gvar objects with uncertainties, modify this section to shift gvar objects instead.
 
         # ---------------------------
         # Save into HDF5

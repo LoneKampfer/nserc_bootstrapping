@@ -199,6 +199,25 @@ def construct_priors_meson(gvdata, t_ref, num_exps, mpi):
 
     return priors
 
+def construct_priors_meson_bootstrap(gvdata, t_ref, num_exps, mpi, E0_boot0, W=3.0):
+    meff = mass_effective_transformation_cosh(gvdata['ss'])
+    m_eff_tref = meff[t_ref['ss']]
+    A_eff_tref_ss = gvdata['ss'][t_ref['ss']] * gv.exp(m_eff_tref * t_ref['ss'])
+    A_eff_tref_ps = gvdata['ps'][t_ref['ps']] * gv.exp(m_eff_tref * t_ref['ps'])
+
+    priors = {
+        'E0': gv.gvar(gv.mean(E0_boot0), W * gv.sdev(E0_boot0)),   # widened prior
+        'A0_ss': A_eff_tref_ss * gv.gvar(1.0, 1.0),
+        'A0_ps': A_eff_tref_ps * gv.gvar(1.0, 1.0)
+    }
+
+    for n in range(1, num_exps + 1):
+        priors[f'log_dE_{n - 1}{n}'] = gv.gvar(np.log(2 * gv.mean(mpi)), 0.7)
+        priors[f'r_{n}_ps'] = gv.gvar(0.0, 2.0)
+        priors[f'r_{n}_ss'] = gv.gvar(1.0, 0.7)
+    return priors
+
+
 # ======== fit functions and priors for baryons ========#
 
 def construct_priors_baryon(gvdata, t_ref, mpi, num_exps, verbose=False):

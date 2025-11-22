@@ -9,14 +9,24 @@ tref_a12 = {'ss': 10, 'ps': 10}
 tref_a15 = {'ss': 10, 'ps': 10}
 
 def prepare_gvdata(data, ensemble, hadron):
+    """
+    Prepare gvdata for bootstrap fitting.
+    
+    For mesons: folds the data (exploiting time-reversal symmetry) then truncates to T//2.
+    For baryons: just truncates to T//2.
+    
+    Returns:
+        gvdata: (n_cfg, T_final, n_channels) where T_final = T//2
+        T_original: original time extent (needed for meson cosh fits)
+    """
     gvdata = data[ensemble][hadron]
-    T = gvdata.shape[1]
+    T_original = gvdata.shape[1]
     if HADRON_TYPES.get(hadron) == "meson":
         gvdata = fold_meson_data(gvdata)
 
-    gvdata = gvdata[:, :T // 2, :]
+    gvdata = gvdata[:, :T_original // 2, :]
     print(gvdata.shape)
-    return gvdata
+    return gvdata, T_original
 
 def generate_boot0_and_mpi_data(ensemble, hadron):
     boot0_data_dir = f"correlator_results/fits/{ensemble}/ground_state_energies_{hadron}.txt"
@@ -51,24 +61,38 @@ def generate_ensemble_indices(ensemble, num_configs, num_samples):
     rng = np.random.default_rng(seed)
     return rng.integers(0, num_configs, size=(num_samples, num_configs))
 
-def bootstrap_gvdata(gvdata, ensemble_indices, boot0_ground_state_energy, mpi, tmin, tmax, num_exps, tref, verbose=False):
+def bootstrap_gvdata(gvdata, T_original, hadron, ensemble_indices, boot0_ground_state_energy, mpi, tmin, tmax, num_exps, tref, verbose=False):
     ground_state_energies = [boot0_ground_state_energy]
     n_bootstrap_samples = ensemble_indices.shape[0]
+    t0 = time.time()
     for i in range(n_bootstrap_samples):
-        if i % 100 == 0 and verbose:
-            print(f"Bootstrap sample {i}/{n_bootstrap_samples}")
+        if verbose:
+            print(f"Bootstrap sample {i}/{n_bootstrap_samples}", end="\r")
         sample_indices = ensemble_indices[i]
         sample_data = gvdata[sample_indices, :, :]
         sample_gvdata = gv.dataset.avg_data(sample_data)
         hadron_sample_gvdata = {"ss": sample_gvdata[:, 0].flatten(), "ps": sample_gvdata[:, 1].flatten()}
-        priors = construct_priors_baryon_bootstrap(hadron_sample_gvdata, tref, num_exps, mpi.mean,
-                                                   boot0_ground_state_energy)
+        if HADRON_TYPES.get(hadron) == "baryon":
+            priors = construct_priors_baryon_bootstrap(hadron_sample_gvdata, tref, num_exps, mpi.mean,
+                                                       boot0_ground_state_energy)
+        elif HADRON_TYPES.get(hadron) == "meson":
+            priors = construct_priors_meson_bootstrap(hadron_sample_gvdata, tref, num_exps, mpi.mean,
+                                                       boot0_ground_state_energy)
+        else:
+            raise Exception(f"Unknown hadron type: {hadron}")
         t = np.arange(tmin, tmax)
         t_w_ss, y_ss = time_window(np.arange(len(hadron_sample_gvdata['ss'])), hadron_sample_gvdata['ss'], tmin, tmax)
         t_w_ps, y_ps = time_window(np.arange(len(hadron_sample_gvdata['ps'])), hadron_sample_gvdata['ps'], tmin, tmax)
         y = {"ss": y_ss, "ps": y_ps}
-        fcn = lambda p: fit_function_baryon(p, t_w_ss, num_exps)
+        if HADRON_TYPES.get(hadron) == "baryon":
+            fcn = lambda p: fit_function_baryon(p, t_w_ss, num_exps)
+        elif HADRON_TYPES.get(hadron) == "meson":
+            fcn = lambda p: fit_function_meson(p, t_w_ss, T_original, num_exps)
+        else:
+            raise Exception(f"Unknown hadron type: {hadron}")
         fit = lsqfit.nonlinear_fit(data=y, fcn=fcn, prior=priors, debug=True)
         ground_state_energy = fit.p['E0']
         ground_state_energies.append(ground_state_energy)
+    t1 = time.time()
+    print(f"Time taken: {t1 - t0} seconds")
     return ground_state_energies
